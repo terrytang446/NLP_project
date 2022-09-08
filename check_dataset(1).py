@@ -13,17 +13,17 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
 # Dataset selection
-if "snli".endswith('.json') or "snli".endswith('.jsonl'):
+if "squad".endswith('.json') or "squad".endswith('.jsonl'):
     dataset_id = None
     # Load from local json/jsonl file
-    dataset = datasets.load_dataset('json', data_files="snli")
+    dataset = datasets.load_dataset('json', data_files="squad")
     # By default, the "json" dataset loader places all examples in the train split,
     # so if we want to use a jsonl file for evaluation we need to get the "train" split
-    # from the loaded dataset
+    # from the loaded datasetf
     eval_split = 'train'
 else:
-    default_datasets = {'qa': ('squad',), 'nli': ('snli',)}
-    dataset_id = tuple("snli".split(':')) if "snli" is not None else \
+    default_datasets = {'qa': ('squad',), 'nli': ('squad',)}
+    dataset_id = tuple("squad".split(':')) if "squad" is not None else \
         default_datasets["nli"]
     # MNLI has two validation splits (one with matched domains and one with mismatched domains). Most datasets just have one "validation" split
     eval_split = 'validation_matched' if dataset_id == ('glue', 'mnli') else 'validation'
